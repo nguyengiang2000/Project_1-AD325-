@@ -6,11 +6,7 @@ import java.util.ArrayList;
 
 public class StockLedger implements StockLedgerInterface {
 
-
     private ArrayList<StockPurchase> ledger;
-
-
-
 
     public StockLedger(){
         ledger = new ArrayList<>();
@@ -25,6 +21,7 @@ public class StockLedger implements StockLedgerInterface {
     @Override
     public void buy(String stockSymbol, int sharesBought, double pricePerShare) {
         StockPurchase purchase = new StockPurchase(stockSymbol, sharesBought, pricePerShare);
+
         ledger.add(purchase);
     }
 
