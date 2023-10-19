@@ -1,14 +1,13 @@
 package Deque.StockLedger;
 
+import Deque.Deque.DequeInterface;
+
+import java.util.Deque;
+
 public class LedgerEntry {
     private String stockSymbol;
-    private int shareBought;
 
-    private double pricePerShare;
+    private DequeInterface<StockPurchase> entry;
 
-    public LedgerEntry(String stockSymbol, int shareBought, double pricePerShare){
-        this.stockSymbol = stockSymbol;
-        this.shareBought = shareBought;
-        this.pricePerShare = pricePerShare;
-    }
+
 }

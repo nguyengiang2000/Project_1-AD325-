@@ -61,7 +61,7 @@ public class LinkedDeque implements DequeInterface {
 
     }
 
-    public class IteratorForLinkedList implements Iterator<StockPurchase>{
+    public class IteratorForLinkedList implements Iterator{
         private DLNode currentNode;
 
         public boolean hasNext(){
@@ -75,7 +75,9 @@ public class LinkedDeque implements DequeInterface {
 
 
 
-            return ;
+
+
+            return x;
         }
     }
 
