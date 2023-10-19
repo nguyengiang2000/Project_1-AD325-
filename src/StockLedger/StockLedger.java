@@ -6,9 +6,10 @@ import java.util.ArrayList;
 
 public class StockLedger implements StockLedgerInterface {
 
-    private ArrayList<StockPurchase> ledger;
+    private ArrayList<LedgerEntry> ledger;
 
     public StockLedger(){
+
         ledger = new ArrayList<>();
     }
     /**
@@ -20,9 +21,26 @@ public class StockLedger implements StockLedgerInterface {
      */
     @Override
     public void buy(String stockSymbol, int sharesBought, double pricePerShare) {
-        StockPurchase purchase = new StockPurchase(stockSymbol, sharesBought, pricePerShare);
+        StockPurchase purchase = new StockPurchase(stockSymbol,sharesBought,pricePerShare);
+        // if ledger array is then create new LedgerEntry object and add it into ledger
+        if(ledger.isEmpty()){
+            LedgerEntry newEntry = new LedgerEntry(stockSymbol);
+            newEntry.add(purchase);
+            ledger.add(newEntry);
+        }
+        else{
+            for(LedgerEntry e : ledger){
+                if(e.getStockSymbol().equals(purchase.getStockSymbol())){
+                    e.add(purchase);
+                }
+                else{
+                    LedgerEntry newEntry = new LedgerEntry(stockSymbol);
+                    newEntry.add(purchase);
+                    ledger.add(newEntry);
+                }
+            }
+        }
 
-        ledger.add(purchase);
     }
 
 
