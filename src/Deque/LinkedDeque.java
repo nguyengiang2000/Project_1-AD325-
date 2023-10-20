@@ -36,50 +36,38 @@ public class LinkedDeque implements DequeInterface {
             this.previous = null;
         }
         public StockPurchase getData(){
+
             return data;
         }
 
         public void setData(StockPurchase data) {
+
             this.data = data;
         }
 
-        public DLNode getNext() {
+        public DLNode getNextNode() {
+
             return next;
         }
 
-        public void setNext(DLNode next) {
+        public void setNextNode(DLNode next) {
+
             this.next = next;
         }
 
-        public DLNode getPrevious() {
-            return previous;
+        public StockPurchase getPrevious() {
+
+            return previous.data;
         }
 
         public void setPrevious(DLNode previous) {
+
             this.previous = previous;
         }
 
     }
 
-    public class IteratorForLinkedList implements Iterator{
-        private DLNode currentNode;
 
-        public boolean hasNext(){
-            return currentNode != null;
-        }
-
-        public StockPurchase next(){
-            if(!hasNext()){
-                throw new EmptyQueueException();
-            }
-
-
-
-
-
-            return x;
-        }
-    }
 
 
 
@@ -121,7 +109,14 @@ public class LinkedDeque implements DequeInterface {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        boolean is_Empty;
+        if(firstNode == null){
+            is_Empty = true;
+        }
+        else{
+            is_Empty = false;
+        }
+        return is_Empty;
     }
 
     /**
@@ -141,7 +136,8 @@ public class LinkedDeque implements DequeInterface {
 
     @Override
     public void clear() {
-
+        firstNode = null;
+        lastNode = null;
     }
 
     /**
@@ -151,11 +147,15 @@ public class LinkedDeque implements DequeInterface {
      */
     @Override
     public Iterator iterator() {
+
         return null;
     }
 
     @Override
     public Iterator getIterator() {
+
         return null;
     }
+
+
 }

@@ -19,30 +19,41 @@ public class StockLedger implements StockLedgerInterface {
      * @param sharesBought  The number of shares purchased.
      * @param pricePerShare The price per share.
      */
+
+
+    /**
+     * Records a stock purchase in this ledger.
+     *
+     * @param stockSymbol   The stock's symbol.
+     * @param sharesBought  The number of shares purchased.
+     * @param pricePerShare The price per share.
+     */
     @Override
     public void buy(String stockSymbol, int sharesBought, double pricePerShare) {
-        StockPurchase purchase = new StockPurchase(stockSymbol,sharesBought,pricePerShare);
-        // if ledger array is then create new LedgerEntry object and add it into ledger
-        if(ledger.isEmpty()){
-            LedgerEntry newEntry = new LedgerEntry(stockSymbol);
-            newEntry.add(purchase);
-            ledger.add(newEntry);
+
+        if(!ledger.contains(stockSymbol)){
+            LedgerEntry entry = new LedgerEntry();
+            while(sharesBought > 0){
+                StockPurchase purchase = new StockPurchase(stockSymbol, pricePerShare);
+                entry.addToBack(purchase);
+                sharesBought--;
+            }
+            ledger.add(entry);
         }
         else{
             for(LedgerEntry e : ledger){
-                if(e.getStockSymbol().equals(purchase.getStockSymbol())){
-                    e.add(purchase);
-                }
-                else{
-                    LedgerEntry newEntry = new LedgerEntry(stockSymbol);
-                    newEntry.add(purchase);
-                    ledger.add(newEntry);
+                if(e.getStockSymbol().equals(stockSymbol)){
+                    while(sharesBought > 0){
+                        StockPurchase purchase = new StockPurchase(stockSymbol, pricePerShare);
+                        e.addToBack(purchase);
+                        sharesBought--;
+
+                    }
+
                 }
             }
         }
-
     }
-
 
     /**
      * Removes from this ledger any shares of a particular stock
@@ -57,6 +68,9 @@ public class StockLedger implements StockLedgerInterface {
     public double sell(String stockSymbol, int sharesSold, double pricePerShare) {
         double saleAmount = sharesSold * pricePerShare;
         double totalCost = 0;
+        while(sharesSold > 0){
+
+        }
 
 
         return 0;
@@ -71,17 +85,11 @@ public class StockLedger implements StockLedgerInterface {
      */
     @Override
     public boolean contains(String stockSymbol) {
-        while(!ledger.isEmpty()){
-            if(ledger.contains(stockSymbol)){
-                System.out.println(stockSymbol + " is exist !");
-                return true;
-            }
-            else {
-                System.out.println(stockSymbol + " is not exist !");
-                return false;
-            }
+           for(LedgerEntry entry : ledger){
+               if(entry.getStockSymbol().equals(stockSymbol)){
+                   return true;
+               }
         }
-        System.out.println(" The ledge is empty! ");
         return false;
     }
 
@@ -94,7 +102,13 @@ public class StockLedger implements StockLedgerInterface {
      */
     @Override
     public LedgerEntry getEntry(String stockSymbol) {
-        return null;
+        LedgerEntry temp = new LedgerEntry();
+        for(LedgerEntry e : ledger){
+            if (e.getStockSymbol().equals(stockSymbol)) {
+                temp = e;
+            }
+        }
+        return temp;
     }
 }
 

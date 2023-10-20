@@ -25,4 +25,5 @@ public interface StockLedgerInterface {
      @param stockSymbol    The stock's symbol.
      @return  LedgerEntry object of stock symbol. */
     public LedgerEntry getEntry(String stockSymbol);
+
 }

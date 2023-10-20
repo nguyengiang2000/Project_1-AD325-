@@ -18,6 +18,11 @@ public class StockPurchase {
         this.pricePerShare = pricePerShare;
     }
 
+    public StockPurchase(String stockSymbol, double pricePerShare){
+        this.stockSymbol = stockSymbol;
+        this.pricePerShare = pricePerShare;
+    }
+
     public String getStockSymbol(){
         return stockSymbol;
     }

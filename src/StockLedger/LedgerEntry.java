@@ -5,7 +5,7 @@ import Deque.Deque.LinkedDeque;
 
 import java.util.Deque;
 
-public class LedgerEntry {
+public class LedgerEntry extends LinkedDeque {
     private String stockSymbol;
 
     private LinkedDeque entry;
