@@ -1,4 +1,6 @@
 package Deque.Deque;
+import Deque.StockLedger.StockPurchase;
+
 import java.util.Iterator;
 
 public interface DequeInterface<T> extends Iterable<T>{

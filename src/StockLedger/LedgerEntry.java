@@ -4,23 +4,9 @@ import Deque.Deque.DequeInterface;
 import Deque.Deque.LinkedDeque;
 
 import java.util.Deque;
+import java.util.SortedMap;
 
 public class LedgerEntry extends LinkedDeque {
-    private String stockSymbol;
-
-    private LinkedDeque entry;
-
-    public LedgerEntry(String stockSymbol){
-        this.stockSymbol = stockSymbol;
-    }
-
-    public LedgerEntry(){
-        this.stockSymbol = stockSymbol;
-        this.entry = entry;
-    }
-
-    public String getStockSymbol(){
-        return stockSymbol;
-    }
 
 }
+

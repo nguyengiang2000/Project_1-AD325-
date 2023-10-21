@@ -4,7 +4,7 @@ import Deque.StockLedger.StockPurchase;
 
 import java.util.Iterator;
 
-public class LinkedDeque implements DequeInterface {
+public class LinkedDeque<StockPurchase> implements DequeInterface <StockPurchase> {
 
     private DLNode firstNode;
     private DLNode lastNode;
@@ -18,26 +18,26 @@ public class LinkedDeque implements DequeInterface {
         lastNode = null;
     }
 
-    public class DLNode{
+    private class DLNode<StockPurchase>{
 
         private StockPurchase data;
-        private DLNode next;
-        private DLNode previous;
+        private DLNode<StockPurchase> nextNode;
+        private DLNode<StockPurchase> previousNode;
 
         public DLNode() {
-            this.data = null;
-            this.next = null;
-            this.previous = null;
+            this.data = data;
+            this.nextNode = null;
+            this.previousNode = null;
         }
 
-        public DLNode(StockPurchase data){
+        public DLNode(StockPurchase data, DLNode nextNode, DLNode previousNode){
             this.data = data;
-            this.next = null;
-            this.previous = null;
+            this.nextNode = nextNode;
+            this.previousNode = previousNode;
         }
         public StockPurchase getData(){
 
-            return data;
+            return this.data;
         }
 
         public void setData(StockPurchase data) {
@@ -47,28 +47,26 @@ public class LinkedDeque implements DequeInterface {
 
         public DLNode getNextNode() {
 
-            return next;
+            return nextNode;
         }
 
         public void setNextNode(DLNode next) {
 
-            this.next = next;
+            this.nextNode = next;
         }
 
-        public StockPurchase getPrevious() {
+        public DLNode getPreviousNode() {
 
-            return previous.data;
+            return previousNode;
         }
 
-        public void setPrevious(DLNode previous) {
+        public void setPreviousNode(DLNode previous) {
 
-            this.previous = previous;
+            this.previousNode = previous;
         }
+
 
     }
-
-
-
 
 
     /**
@@ -77,14 +75,21 @@ public class LinkedDeque implements DequeInterface {
      * @param newEntry An object to be added.
      */
     @Override
-    public void addToFront(Object newEntry) {
+    public void addToFront(StockPurchase newEntry) {
 
     }
+
+    /**
+     * Adds a new entry to the front of back of this deque.
+     *
+     * @param newEntry An object to be added.
+     */
+
 
     @Override
-    public void addToBack(Object newEntry) {
-
+    public void addToBack(StockPurchase newEntry) {
     }
+
 
     /**
      * Removes and returns the front or back entry of this deque.
@@ -93,12 +98,14 @@ public class LinkedDeque implements DequeInterface {
      * @throws EmptyQueueException if the deque is empty before the operation.
      */
     @Override
-    public Object removeFront() {
+    public StockPurchase removeFront() {
+
         return null;
     }
 
+
     @Override
-    public Object removeBack() {
+    public StockPurchase removeBack() {
         return null;
     }
 
@@ -109,14 +116,7 @@ public class LinkedDeque implements DequeInterface {
      */
     @Override
     public boolean isEmpty() {
-        boolean is_Empty;
-        if(firstNode == null){
-            is_Empty = true;
-        }
-        else{
-            is_Empty = false;
-        }
-        return is_Empty;
+        return firstNode == null && lastNode == null;
     }
 
     /**
@@ -125,12 +125,15 @@ public class LinkedDeque implements DequeInterface {
      * @return Entry data for front of back node.
      */
     @Override
-    public Object getFront() {
+    public StockPurchase getFront() {
         return null;
     }
 
     @Override
-    public Object getBack() {
+    public StockPurchase getBack() {
+        if(isEmpty()){
+            throw new EmptyQueueException();
+        }
         return null;
     }
 
