@@ -1,81 +1,25 @@
 package Deque.Deque;
 
-import Deque.StockLedger.StockPurchase;
-
 import java.util.Iterator;
 
-public class LinkedDeque<StockPurchase> implements DequeInterface <StockPurchase> {
+public class LinkedDeque <T> implements DequeInterface <T> {
 
-    private DLNode firstNode;
-    private DLNode lastNode;
+    private DLNode<T> head;
+    private DLNode<T> tail;
 
-    public LinkedDeque(){
-        /**
-         * firstNode reference to first Node in Linked Deque
-         * lastNode reference to last Node in Linked Deque
-         */
-        firstNode = null;
-        lastNode = null;
-    }
+    private static int size;
 
-    private class DLNode<StockPurchase>{
+    public class DLNode <T>{
 
-        private StockPurchase data;
-        private DLNode<StockPurchase> nextNode;
-        private DLNode<StockPurchase> previousNode;
+        T data;
+        private DLNode<T> next;
+        private DLNode<T> previous;
 
-        public DLNode() {
+        public DLNode(T data){
             this.data = data;
-            this.nextNode = null;
-            this.previousNode = null;
+            this.next = null;
+            this.previous = null;
         }
-
-        public DLNode(StockPurchase data, DLNode nextNode, DLNode previousNode){
-            this.data = data;
-            this.nextNode = nextNode;
-            this.previousNode = previousNode;
-        }
-        public StockPurchase getData(){
-
-            return this.data;
-        }
-
-        public void setData(StockPurchase data) {
-
-            this.data = data;
-        }
-
-        public DLNode getNextNode() {
-
-            return nextNode;
-        }
-
-        public void setNextNode(DLNode next) {
-
-            this.nextNode = next;
-        }
-
-        public DLNode getPreviousNode() {
-
-            return previousNode;
-        }
-
-        public void setPreviousNode(DLNode previous) {
-
-            this.previousNode = previous;
-        }
-
-
-    }
-
-
-    /**
-     * Adds a new entry to the front of back of this deque.
-     *
-     * @param newEntry An object to be added.
-     */
-    @Override
-    public void addToFront(StockPurchase newEntry) {
 
     }
 
@@ -84,12 +28,36 @@ public class LinkedDeque<StockPurchase> implements DequeInterface <StockPurchase
      *
      * @param newEntry An object to be added.
      */
-
-
     @Override
-    public void addToBack(StockPurchase newEntry) {
+    public void addToFront(T newEntry) {
+        DLNode newNode = new DLNode(newEntry);
+        if(isEmpty()){
+            head = newNode;
+            tail = newNode;
+        }
+        else{
+            newNode.next = head;
+            head.previous = newNode;
+            head = newNode;
+        }
+        size++;
     }
 
+    @Override
+    public void addToBack(T newEntry) {
+        DLNode newNode = new DLNode(newEntry);
+
+        if(isEmpty()){
+            head = newNode;
+            tail = newNode;
+        }else{
+            newNode.previous = tail;
+            tail.next = newNode;
+            tail = newNode;
+
+        }
+        size++;
+    }
 
     /**
      * Removes and returns the front or back entry of this deque.
@@ -98,15 +66,40 @@ public class LinkedDeque<StockPurchase> implements DequeInterface <StockPurchase
      * @throws EmptyQueueException if the deque is empty before the operation.
      */
     @Override
-    public StockPurchase removeFront() {
+    public T removeFront() {
+        if (isEmpty()) {
+            throw new EmptyQueueException();
+        }
+            T data = head.data;
+            head = head.next;
+            if (head == null) {
+                tail = null;
+            }
+            else {
+                head.previous = null;
+            }
+            size--;
+            return data;
 
-        return null;
     }
 
-
     @Override
-    public StockPurchase removeBack() {
-        return null;
+    public T removeBack() {
+            if(isEmpty()){
+                throw new EmptyQueueException();
+            }
+
+                T data = tail.data;
+                tail = tail.previous;
+                if(tail == null){
+                    head = null;
+                }
+                else{
+                    tail.next = null;
+                }
+
+        size--;
+        return data;
     }
 
     /**
@@ -116,7 +109,8 @@ public class LinkedDeque<StockPurchase> implements DequeInterface <StockPurchase
      */
     @Override
     public boolean isEmpty() {
-        return firstNode == null && lastNode == null;
+
+        return head == null;
     }
 
     /**
@@ -125,40 +119,72 @@ public class LinkedDeque<StockPurchase> implements DequeInterface <StockPurchase
      * @return Entry data for front of back node.
      */
     @Override
-    public StockPurchase getFront() {
-        return null;
+    public T getFront() {
+        T data = head.data;
+        return data;
     }
 
     @Override
-    public StockPurchase getBack() {
-        if(isEmpty()){
-            throw new EmptyQueueException();
-        }
-        return null;
+    public T getBack() {
+        T data = tail.data;
+        return data;
     }
 
     @Override
     public void clear() {
-        firstNode = null;
-        lastNode = null;
+        head = null;
+        tail = null;
     }
 
+
+
+    public int getSize(){
+        return size;
+    }
     /**
      * Creates iterators to iterate through deque.
      *
      * @return Returns an iterator for use.
      */
     @Override
-    public Iterator iterator() {
-
-        return null;
+    public Iterator<T> iterator() {
+        return new IteratorForLinkedList();
     }
 
     @Override
     public Iterator getIterator() {
-
-        return null;
+        return iterator();
     }
 
+    private class IteratorForLinkedList implements Iterator<T>{
+        private DLNode<T> current = head;
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
 
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws EmptyQueueException() if the iteration has no more elements
+         */
+        @Override
+        public T next() {
+            if(current == null){
+                throw new EmptyQueueException();
+            }
+
+                T data = current.data;
+                current = current.next;
+            return data;
+        }
+    }
 }
