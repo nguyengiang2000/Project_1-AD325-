@@ -69,17 +69,17 @@ public class LinkedDeque <T> implements DequeInterface <T> {
     public T removeFront() {
         if (isEmpty()) {
             throw new EmptyQueueException();
-        }
+        }else {
             T data = head.data;
             head = head.next;
             if (head == null) {
                 tail = null;
-            }
-            else {
+            } else {
                 head.previous = null;
             }
             size--;
             return data;
+        }
 
     }
 

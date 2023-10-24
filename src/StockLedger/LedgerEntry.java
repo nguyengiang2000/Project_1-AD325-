@@ -4,6 +4,7 @@ import Deque.Deque.EmptyQueueException;
 import Deque.Deque.LinkedDeque;
 
 public class LedgerEntry<T> extends LinkedDeque {
+
     private String stockSymbol;
     private LinkedDeque<StockPurchase> entry;
 
@@ -28,18 +29,19 @@ public class LedgerEntry<T> extends LinkedDeque {
 
     public StockPurchase sellStockPurchase() {
         if (entry.isEmpty()) {
-            throw new EmptyQueueException();
+            // Handle the case where the deque is empty
+            return null; // or you can throw an exception if you prefer
+        } else {
+            return entry.removeFront();
         }
-        return entry.removeFront() ;
     }
 
     public void getInfo(){
-        while(!entry.isEmpty()){
-            for( StockPurchase e : entry){
-                System.out.println("Stock of " + e.getStockSymbol() + " Price per unit is " + e.getPricePerShare());
-            }
+        for(StockPurchase i : entry){
+            System.out.println("Stock of " + i.getStockSymbol() + " price " + i.getPricePerShare());
         }
     }
+
 
 
 

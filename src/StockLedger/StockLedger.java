@@ -3,6 +3,7 @@ package Deque.StockLedger;
 import Deque.Deque.EmptyQueueException;
 import Deque.Deque.LinkedDeque;
 
+import javax.xml.stream.events.EntityReference;
 import java.util.ArrayList;
 
 public class StockLedger<T> implements StockLedgerInterface {
@@ -13,24 +14,27 @@ public class StockLedger<T> implements StockLedgerInterface {
      @param pricePerShare  The price per share. */
     @Override
     public void buy(String stockSymbol, int sharesBought, double pricePerShare) {
-        LedgerEntry entry = null;
-
-        for (LedgerEntry e : ledger) {
-            if (e.getEntrySymbol().equals(stockSymbol)) {
-                entry = e;
-                break;
+        StockPurchase purchase = new StockPurchase(stockSymbol, pricePerShare);
+        if(!ledger.contains(purchase.getStockSymbol())){
+            LedgerEntry newEntry = new LedgerEntry(stockSymbol);
+            while(sharesBought > 0){
+                newEntry.addStockPurchase(purchase);
+                sharesBought--;
             }
+            ledger.add(newEntry);
+            newEntry.getInfo();
         }
+        else{
+            for(LedgerEntry e : ledger){
+                while(sharesBought > 0){
+                    if(e.getEntrySymbol().equals(stockSymbol)) {
+                        e.addStockPurchase(purchase);
+                        sharesBought--;
+                    }
 
-        if (entry == null) {
-            entry = new LedgerEntry(stockSymbol);
-            ledger.add(entry);
-        }
+                }
+            }
 
-        while (sharesBought > 0) {
-            StockPurchase purchase = new StockPurchase(stockSymbol, pricePerShare);
-            entry.addStockPurchase(purchase);
-            sharesBought--;
         }
     }
     /** Removes from this ledger any shares of a particular stock
@@ -39,33 +43,34 @@ public class StockLedger<T> implements StockLedgerInterface {
      @param sharesSold     The number of shares sold.
      @param pricePerShare  The price per share.
      @return  The capital gain (loss). */
-    @Override
+
+
     public double sell(String stockSymbol, int sharesSold, double pricePerShare) {
-        if (ledger.isEmpty()) {
-            throw new EmptyQueueException();
-        }
+        double capital = 0;
+        double sellCost = sharesSold * pricePerShare;
+        double totalOfSold = 0;
 
-        double saleAmount = sharesSold * pricePerShare;
-        double totalCost = 0;
-
-
-        for( LedgerEntry e : ledger){
-            if(e.getEntrySymbol().equals(stockSymbol)){
-                while(sharesSold > 0){
-                    if(e.isEmpty()){
-                        ledger.remove(e);
-                    }else {
-                        e.getInfo();
-                        StockPurchase soldUnit = e.sellStockPurchase();
-                        Double priceSold = soldUnit.getPricePerShare();
-                        totalCost = totalCost + priceSold;
+        for (LedgerEntry e : ledger) {
+            if (e.getEntrySymbol().equals(stockSymbol)) {
+                while (sharesSold > 0) {
+                    //Be careful, if sharesSold no more left, sold_Unit become null -> throw Exception Error
+                    StockPurchase sold_Unit = e.sellStockPurchase();
+                    // if sold_Unit remain 0 then break the loop and finish the code
+                    // otherwise keep caluclate totalSold
+                    if (sold_Unit != null) {
+                        double soldCost = sold_Unit.getPricePerShare();
+                        // total cost after sold the current shares.
+                        totalOfSold = totalOfSold + soldCost;
+                        sharesSold--;
+                    } else {
+                        // break if there is no more unit to sold
+                        break;
                     }
                 }
             }
         }
-
-
-        return saleAmount - totalCost;
+        // capital return sell cost - total sold
+        return capital = sellCost - totalOfSold;
     }
     /** Returns a boolean on whether the passed in stock symbol is contained in the ledger.
      @param stockSymbol    The stock's symbol.
@@ -92,10 +97,13 @@ public class StockLedger<T> implements StockLedgerInterface {
         return null; // Return null if the stockSymbol is not found
     }
 
-      public void print(){
+    // Test LinkedDeque
+    public void Diplay(){
+        System.out.println("--- Stock Ledger ---");
         for(LedgerEntry e : ledger){
             e.getInfo();
         }
-      }
+    }
+
 
 }
