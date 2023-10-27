@@ -6,7 +6,12 @@ import Deque.Deque.LinkedDeque;
 public class LedgerEntry<T> extends LinkedDeque {
 
     private String stockSymbol;
+
     private LinkedDeque<StockPurchase> entry;
+    private LinkedDeque<StockPurchase> summarizeStock;
+
+
+    private int size;
 
     public LedgerEntry(String stockSymbol){
         this.stockSymbol = stockSymbol;
@@ -14,6 +19,7 @@ public class LedgerEntry<T> extends LinkedDeque {
     }
 
     public String getEntrySymbol(){
+
         return this.stockSymbol;
     }
 
@@ -33,8 +39,12 @@ public class LedgerEntry<T> extends LinkedDeque {
             return null; // or you can throw an exception if you prefer
         } else {
             return entry.removeFront();
+
         }
     }
+
+
+
 
     public void getInfo(){
         for(StockPurchase i : entry){

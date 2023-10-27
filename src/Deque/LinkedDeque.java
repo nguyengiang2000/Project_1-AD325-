@@ -7,7 +7,6 @@ public class LinkedDeque <T> implements DequeInterface <T> {
     private DLNode<T> head;
     private DLNode<T> tail;
 
-    private static int size;
 
     public class DLNode <T>{
 
@@ -39,8 +38,8 @@ public class LinkedDeque <T> implements DequeInterface <T> {
             newNode.next = head;
             head.previous = newNode;
             head = newNode;
+
         }
-        size++;
     }
 
     @Override
@@ -56,7 +55,6 @@ public class LinkedDeque <T> implements DequeInterface <T> {
             tail = newNode;
 
         }
-        size++;
     }
 
     /**
@@ -76,8 +74,8 @@ public class LinkedDeque <T> implements DequeInterface <T> {
                 tail = null;
             } else {
                 head.previous = null;
+
             }
-            size--;
             return data;
         }
 
@@ -93,12 +91,13 @@ public class LinkedDeque <T> implements DequeInterface <T> {
                 tail = tail.previous;
                 if(tail == null){
                     head = null;
+
                 }
                 else{
                     tail.next = null;
+
                 }
 
-        size--;
         return data;
     }
 
@@ -136,11 +135,6 @@ public class LinkedDeque <T> implements DequeInterface <T> {
         tail = null;
     }
 
-
-
-    public int getSize(){
-        return size;
-    }
     /**
      * Creates iterators to iterate through deque.
      *
@@ -157,7 +151,12 @@ public class LinkedDeque <T> implements DequeInterface <T> {
     }
 
     private class IteratorForLinkedList implements Iterator<T>{
-        private DLNode<T> current = head;
+        private DLNode<T> nextNode;
+
+        private IteratorForLinkedList(){
+            nextNode = head;
+        }
+
         /**
          * Returns {@code true} if the iteration has more elements.
          * (In other words, returns {@code true} if {@link #next} would
@@ -167,7 +166,7 @@ public class LinkedDeque <T> implements DequeInterface <T> {
          */
         @Override
         public boolean hasNext() {
-            return current != null;
+            return nextNode != null;
         }
 
         /**
@@ -178,12 +177,12 @@ public class LinkedDeque <T> implements DequeInterface <T> {
          */
         @Override
         public T next() {
-            if(current == null){
+            if(nextNode == null){
                 throw new EmptyQueueException();
             }
 
-                T data = current.data;
-                current = current.next;
+                T data = nextNode.data;
+                nextNode = nextNode.next;
             return data;
         }
     }

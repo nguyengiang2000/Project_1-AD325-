@@ -22,7 +22,6 @@ public class StockLedger<T> implements StockLedgerInterface {
                 sharesBought--;
             }
             ledger.add(newEntry);
-            newEntry.getInfo();
         }
         else{
             for(LedgerEntry e : ledger){
@@ -103,6 +102,7 @@ public class StockLedger<T> implements StockLedgerInterface {
         for(LedgerEntry e : ledger){
             e.getInfo();
         }
+
     }
 
 

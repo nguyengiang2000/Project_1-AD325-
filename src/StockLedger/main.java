@@ -2,21 +2,39 @@ package Deque.StockLedger;
 
 public class main {
     public static void main(String[] args) {
-        StockLedger a = new StockLedger();
-        System.out.println("Buy 1");
-        a.buy("AAPL", 1, 55);
-        System.out.println("Buy 2");
-        a.buy("AAPL", 1, 55);
-        System.out.println("Buy 3");
-        a.buy("AAPL", 1, 55);
-        System.out.println("Buy 4");
-        a.buy("AMNZ", 2, 50);
+        StockLedger transaction_1 = new StockLedger();
+        transaction_1.buy("AAPL", 20, 45);
+        transaction_1.buy("AAPL", 20, 75);
+        transaction_1.buy("MSFT", 20, 95);
+        transaction_1.Diplay();
+        transaction_1.sell("AAPL", 30, 65);
+        transaction_1.Diplay();
+        transaction_1.sell("AAPLS", 10, 65);
+        transaction_1.Diplay();
+        transaction_1.buy("AAPL", 100, 20);
+        transaction_1.buy("AAPL", 20, 24);
+        transaction_1.buy("TSLA", 200, 36);
+        transaction_1.Diplay();
+        transaction_1.sell("AAPL", 10, 65);
+        transaction_1.Diplay();
+        transaction_1.sell("TSLA", 150, 30);
+        transaction_1.Diplay();
+        transaction_1.buy("MSFT", 5, 60);
+        transaction_1.buy("MSFT", 5, 70);
+        transaction_1.Diplay();;
+        transaction_1.sell("MSFT", 4, 30);
+        transaction_1.Diplay();
+        transaction_1.sell("MSFT", 2, 30);
+        transaction_1.Diplay();
 
-        double capital = a.sell("AAPL", 2, 150);
 
 
-        System.out.println("Gain Lose " + capital);
-        a.Diplay();
+
+
+
+
+
+
 
 
 
