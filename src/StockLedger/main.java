@@ -9,7 +9,7 @@ public class main {
         transaction_1.Diplay();
         transaction_1.sell("AAPL", 30, 65);
         transaction_1.Diplay();
-        transaction_1.sell("AAPLS", 10, 65);
+        transaction_1.sell("AAPL", 10, 65);
         transaction_1.Diplay();
         transaction_1.buy("AAPL", 100, 20);
         transaction_1.buy("AAPL", 20, 24);
@@ -26,21 +26,6 @@ public class main {
         transaction_1.Diplay();
         transaction_1.sell("MSFT", 2, 30);
         transaction_1.Diplay();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

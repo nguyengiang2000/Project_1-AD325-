@@ -96,11 +96,14 @@ public class StockLedger<T> implements StockLedgerInterface {
         return null; // Return null if the stockSymbol is not found
     }
 
+    /**
+     * Display each entry in a ledger
+     */
     // Test LinkedDeque
     public void Diplay(){
-        System.out.println("--- Stock Ledger ---");
+        System.out.println("----- Stock Ledger -----");
         for(LedgerEntry e : ledger){
-            e.getInfo();
+            e.getCount();
         }
 
     }

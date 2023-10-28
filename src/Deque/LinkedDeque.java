@@ -14,6 +14,10 @@ public class LinkedDeque <T> implements DequeInterface <T> {
         private DLNode<T> next;
         private DLNode<T> previous;
 
+        /**
+         * Create constructure of DLNode with 1 param - Data
+         * @param data
+         */
         public DLNode(T data){
             this.data = data;
             this.next = null;
@@ -25,6 +29,11 @@ public class LinkedDeque <T> implements DequeInterface <T> {
     /**
      * Adds a new entry to the front of back of this deque.
      *
+     * @param newEntry An object to be added.
+     */
+
+    /**
+     * Add new node to the front of Linked Deque
      * @param newEntry An object to be added.
      */
     @Override
@@ -42,6 +51,10 @@ public class LinkedDeque <T> implements DequeInterface <T> {
         }
     }
 
+    /**
+     * Add new node to the back of Linked Deque
+     * @param newEntry An object to be added.
+     */
     @Override
     public void addToBack(T newEntry) {
         DLNode newNode = new DLNode(newEntry);
@@ -58,7 +71,7 @@ public class LinkedDeque <T> implements DequeInterface <T> {
     }
 
     /**
-     * Removes and returns the front or back entry of this deque.
+     * Removes and returns the front entry of this deque.
      *
      * @return The object at the front or back of the deque.
      * @throws EmptyQueueException if the deque is empty before the operation.
@@ -81,6 +94,12 @@ public class LinkedDeque <T> implements DequeInterface <T> {
 
     }
 
+    /**
+     * Removes and returns the back entry of this deque.
+     *
+     * @return The object at the front or back of the deque.
+     * @throws EmptyQueueException if the deque is empty before the operation.
+     */
     @Override
     public T removeBack() {
             if(isEmpty()){
@@ -113,7 +132,7 @@ public class LinkedDeque <T> implements DequeInterface <T> {
     }
 
     /**
-     * Returns the front or back entry's data.
+     * Returns the front entry's data.
      *
      * @return Entry data for front of back node.
      */
@@ -123,12 +142,22 @@ public class LinkedDeque <T> implements DequeInterface <T> {
         return data;
     }
 
+
+    /**
+     * Returns the back entry's data.
+     *
+     * @return Entry data for front of back node.
+     */
     @Override
     public T getBack() {
         T data = tail.data;
         return data;
     }
 
+    /**
+     * clear
+     * set head and tail node = null
+     */
     @Override
     public void clear() {
         head = null;
@@ -168,6 +197,7 @@ public class LinkedDeque <T> implements DequeInterface <T> {
         public boolean hasNext() {
             return nextNode != null;
         }
+
 
         /**
          * Returns the next element in the iteration.
