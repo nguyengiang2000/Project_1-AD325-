@@ -101,7 +101,7 @@ public class StockLedger<T> implements StockLedgerInterface {
      */
     // Test LinkedDeque
     public void Diplay(){
-        System.out.println("----- Stock Ledger -----");
+        System.out.println("\n---[ Stock Ledger ]---");
         for(LedgerEntry e : ledger){
             e.getCount();
         }
