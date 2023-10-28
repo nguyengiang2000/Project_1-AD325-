@@ -81,7 +81,7 @@ public class LedgerEntry<T> extends LinkedDeque {
         for (Map.Entry<Double, Integer> map : priceAmountMap.entrySet()) {
             double price = map.getKey();
             int totalAmount = map.getValue();
-            System.out.println("    "+ getEntrySymbol() + " " + price + " (" + totalAmount + ") ");
+            System.out.println("    "+ getEntrySymbol() + " $" + price + " (" + totalAmount + ") ");
         }
 
         }
