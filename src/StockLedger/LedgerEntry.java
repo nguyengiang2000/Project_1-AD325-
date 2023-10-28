@@ -60,23 +60,24 @@ public class LedgerEntry<T> extends LinkedDeque {
     }
 
     /**
-     * print out stock symbol and price
+     * count amount of individual stock and group together with same price
      */
     public void getCount(){
-
+        // create map table name priceAmountMap
         Map<Double, Integer> priceAmountMap = new HashMap<>();
 
         for (StockPurchase purchase : entry) {
             double price = purchase.getPricePerShare();
-            int amount = 1; // Assuming each purchase is for one share
-
+            // start counting from 1
+            int amount = 1;
+            // if map table already contain price as key, amount++
             if (priceAmountMap.containsKey(price)) {
                 amount += priceAmountMap.get(price);
             }
-
+            // add amount counting and price into a set in a map
             priceAmountMap.put(price, amount);
         }
-
+        // LOOP object map through map priceAmoutnMap and set price and totalAmount with key and value then print out
         for (Map.Entry<Double, Integer> map : priceAmountMap.entrySet()) {
             double price = map.getKey();
             int totalAmount = map.getValue();
